@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="DarkerNero">#ff191919</color>
+    <color name="Nero">#ff282828</color>
+    <color name="DustyGray">#ff999999</color>
+    <color name="Hover">#ff656363</color>
+    <color name="Lime">#FF77DD77</color>
+    <color name="Orchid">#FFC650DA</color>
+    <color name="LightOrange">#FFFF9F40</color>
+    <color name="LightBlue">#FF5CD3DB</color>
+    <color name="LighterOrange">#FFF4BE37</color>
+    <color name="LightRed">#FFEE4738</color>
+    <color name="GoogleBlue">#FF4285F4</color>
+    <color name="LightGray">#FF4285F4</color>
+    <color name="BlueViolet">#FF8729E5</color>
+    <color name="SkyBlue">#FF37D2F4</color>
+
+</resources>
+
+<!--
+val DarkerNero = Color(0xFF191919)
+val Nero = Color(0xFF282828)
+val DustyGray = Color(0xFF999999)
+val Hover = Color(0xFF656363)
+val Lime = Color(0xFF77DD77)
+val Orchid = Color(0xFFC650DA)
+val LightOrange = Color(0xFFFF9F40)
+val LightBlue = Color(0xFF5CD3DB)
+val LighterOrange = Color(0xFFF4BE37)
+val LightRed = Color(0xFFEE4738)
+val GoogleBlue = Color(0xFF4285F4)
+val LightGray = Color(0xFF4285F4)
+val BlueViolet = Color(0xFF8729E5)
+val SkyBlue = Color(0xFF37D2F4)
+-->
