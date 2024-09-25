@@ -10,7 +10,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class NutrientDataManipulationModule {
-
+//aaa
     @Binds
     @Singleton
     @Named("A")
