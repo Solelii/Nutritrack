@@ -1,5 +1,7 @@
 package com.example.softwareengineeringproject.db.food
 
-class OpenFoodFactsFood {
+import io.realm.kotlin.types.RealmObject
+
+class OpenFoodFactsFood: RealmObject {
 
 }

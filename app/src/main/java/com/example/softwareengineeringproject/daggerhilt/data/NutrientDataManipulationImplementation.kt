@@ -1,9 +1,9 @@
 package com.example.softwareengineeringproject.daggerhilt.data
 
-import com.example.softwareengineeringproject.db.nutrient.Nutrient
-import com.example.softwareengineeringproject.db.nutrient.RDA
-import com.example.softwareengineeringproject.db.user.User
-import com.example.softwareengineeringproject.interfaces.NutrientDataManipulation
+//import com.example.softwareengineeringproject.db.nutrient.Nutrient
+//import com.example.softwareengineeringproject.db.nutrient.RDA
+//import com.example.softwareengineeringproject.db.user.User
+//import com.example.softwareengineeringproject.interfaces.NutrientDataManipulation
 
 ////Class that contains the implementations of the interface
 ////The dependency that is passed

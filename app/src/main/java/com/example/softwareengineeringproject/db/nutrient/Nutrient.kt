@@ -8,11 +8,13 @@ import org.mongodb.kbson.ObjectId
 //Nutrient must be a frozen-object
 
 class Nutrient: RealmObject {
+
     @PrimaryKey
     var _id: ObjectId = ObjectId()
     var nutrientName: String = ""
     var unit: String = ""
     var recommendedDietaryAllowance: RDA = RDA()
+    var baseNutrient: BaseNutrient = BaseNutrient()
 
     /*
         Vitamin A

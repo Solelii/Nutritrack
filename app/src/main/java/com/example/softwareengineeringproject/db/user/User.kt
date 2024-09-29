@@ -1,8 +1,11 @@
 package com.example.softwareengineeringproject.db.user
 
+import com.example.softwareengineeringproject.db.diary.Diary
 import io.realm.kotlin.ext.realmListOf
+import io.realm.kotlin.types.RealmInstant
 import io.realm.kotlin.types.RealmList
 import io.realm.kotlin.types.RealmObject
+import io.realm.kotlin.types.annotations.Ignore
 import io.realm.kotlin.types.annotations.PrimaryKey
 import org.mongodb.kbson.ObjectId
 import java.util.Date
@@ -13,7 +16,14 @@ class User: RealmObject {
     var _id: ObjectId = ObjectId()
     var firstName: String = ""
     var profileImg: String = ""
-    var birthDate: Date = Date()
+    //@Ignore
+    /*
+        e: file:///C:/Users/ACER/AndroidStudioProjects/SoftwareEngineeringProject/app/src/main/java/com/example/softwareengineeringproject/db/food/SampleFood.kt:10:5
+        [Realm] Realm does not support persisting properties of this type.
+        Mark the field with `@Ignore` to suppress this error.
+        Date() from java.util is not supported by Realm-Kotlin sdk
+     */
+    var birthDate: RealmInstant = RealmInstant.now()
     var nutrientIntakeHistory: NutrientIntakeHistory = NutrientIntakeHistory()
     var goal: Goal = Goal()
     var activityLevel: Int = 0
@@ -33,5 +43,6 @@ class User: RealmObject {
      */
 
     var salt: String = ""
+    var diary: Diary = Diary()
 
 }
