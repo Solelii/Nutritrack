@@ -5,7 +5,7 @@ import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey
 import org.bson.types.ObjectId
 
-Base Nutrient for DailyNutrient and NutritionalContent
+//Base Nutrient for DailyNutrient and NutritionalContent
 
 open class BaseNutrient: EmbeddedRealmObject {
 

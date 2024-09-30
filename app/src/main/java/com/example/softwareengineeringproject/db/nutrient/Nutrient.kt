@@ -5,7 +5,7 @@ import io.realm.kotlin.types.annotations.PrimaryKey
 import org.mongodb.kbson.ObjectId
 
 
-Nutrient must be a frozen-object
+//Nutrient must be a frozen-object
 
 class Nutrient: RealmObject {
 
