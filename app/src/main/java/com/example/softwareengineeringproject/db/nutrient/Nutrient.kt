@@ -1,8 +1,8 @@
 package com.example.softwareengineeringproject.db.nutrient
 
-import io.realm.kotlin.types.RealmObject
-import io.realm.kotlin.types.annotations.PrimaryKey
-import org.mongodb.kbson.ObjectId
+//import io.realm.kotlin.types.RealmObject
+//import io.realm.kotlin.types.annotations.PrimaryKey
+//import org.mongodb.kbson.ObjectId
 
 
 //Nutrient must be a frozen-object

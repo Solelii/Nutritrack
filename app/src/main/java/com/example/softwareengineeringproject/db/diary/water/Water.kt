@@ -1,7 +1,7 @@
 package com.example.softwareengineeringproject.db.diary.water
 
-import io.realm.kotlin.types.EmbeddedRealmObject
-import java.util.Date
+//import io.realm.kotlin.types.EmbeddedRealmObject
+//import java.util.Date
 
 //class Water: EmbeddedRealmObject {
 //
