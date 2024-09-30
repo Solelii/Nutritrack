@@ -11,13 +11,14 @@ import com.example.softwareengineeringproject.db.diary.water.Water
 import com.example.softwareengineeringproject.db.food.NutritionalContent
 import com.example.softwareengineeringproject.db.food.OpenFoodFactsFood
 import com.example.softwareengineeringproject.db.food.SampleFood
-import com.example.softwareengineeringproject.db.nutrient.BaseNutrient
 import com.example.softwareengineeringproject.db.nutrient.Nutrient
+import com.example.softwareengineeringproject.db.nutrient.NutrientIntakeHistory
 import com.example.softwareengineeringproject.db.nutrient.RDA
 import com.example.softwareengineeringproject.db.user.Accounts
 import com.example.softwareengineeringproject.db.user.Goal
-import com.example.softwareengineeringproject.db.user.NutrientIntakeHistory
 import com.example.softwareengineeringproject.db.user.User
+import com.example.softwareengineeringproject.db.user.WeightInput
+import com.example.softwareengineeringproject.db.user.WeightRecord
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
 
@@ -72,12 +73,13 @@ class App: Application() {
                     OpenFoodFactsFood::class,
                     SampleFood::class,
                     Nutrient::class,
-                    BaseNutrient::class,
                     RDA::class,
                     User::class,
                     NutrientIntakeHistory::class,
                     Goal::class,
                     Accounts::class,
+                    WeightRecord::class,
+                    WeightInput::class,
                 )
             )
         )

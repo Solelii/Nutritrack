@@ -1,5 +1,6 @@
 package com.example.softwareengineeringproject.db.nutrient
 
+import io.realm.kotlin.types.EmbeddedRealmObject
 import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey
 import org.mongodb.kbson.ObjectId
@@ -9,12 +10,9 @@ import org.mongodb.kbson.ObjectId
 
 class Nutrient: RealmObject {
 
-    @PrimaryKey
-    var _id: ObjectId = ObjectId()
     var nutrientName: String = ""
     var unit: String = ""
-    var recommendedDietaryAllowance: RDA = RDA()
-    var baseNutrient: BaseNutrient = BaseNutrient()
+    var recommendedDietaryAllowance: RDA? = null
 
     /*
         Vitamin A

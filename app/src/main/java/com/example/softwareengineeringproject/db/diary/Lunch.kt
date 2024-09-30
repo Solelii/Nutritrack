@@ -4,8 +4,9 @@ import com.example.softwareengineeringproject.db.food.SampleFood
 import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.types.EmbeddedRealmObject
 import io.realm.kotlin.types.RealmList
+import io.realm.kotlin.types.RealmObject
 
-class Lunch: EmbeddedRealmObject {
+class Lunch: RealmObject {
 
     var foodEntry: RealmList<SampleFood> = realmListOf()
 

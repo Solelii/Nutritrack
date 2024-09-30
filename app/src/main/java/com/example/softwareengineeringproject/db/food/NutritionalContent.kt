@@ -1,10 +1,12 @@
 package com.example.softwareengineeringproject.db.food
 
-import com.example.softwareengineeringproject.db.nutrient.BaseNutrient
+import com.example.softwareengineeringproject.db.nutrient.Nutrient
 import io.realm.kotlin.types.EmbeddedRealmObject
+import io.realm.kotlin.types.RealmObject
 
-class NutritionalContent: EmbeddedRealmObject, BaseNutrient() {
+class NutritionalContent: RealmObject{
 
-    var amount: Double = 0.0
+    var nutrient: Nutrient? = null
+    var content: Double = 0.0
 
 }

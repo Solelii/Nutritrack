@@ -24,8 +24,7 @@ class User: RealmObject {
         Date() from java.util is not supported by Realm-Kotlin sdk
      */
     var birthDate: RealmInstant = RealmInstant.now()
-    var nutrientIntakeHistory: NutrientIntakeHistory = NutrientIntakeHistory()
-    var goal: Goal = Goal()
+    var goal: Goal? = null
     var activityLevel: Int = 0
     var sex: String = ""
 
@@ -43,6 +42,5 @@ class User: RealmObject {
      */
 
     var salt: String = ""
-    var diary: Diary = Diary()
-
+    var cupSize: Double = 16.0
 }
