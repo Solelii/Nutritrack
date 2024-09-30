@@ -7,8 +7,8 @@ import org.bson.types.ObjectId
 
 //Base Nutrient for DailyNutrient and NutritionalContent
 
-open class BaseNutrient: EmbeddedRealmObject {
-
-    var nutrient: Nutrient = Nutrient()
-
-}
+//open class BaseNutrient: EmbeddedRealmObject {
+//
+//    var nutrient: Nutrient = Nutrient()
+//
+//}
