@@ -11,7 +11,8 @@ import com.example.softwareengineeringproject.db.diary.Snacks
 import com.example.softwareengineeringproject.db.diary.water.Water
 import com.example.softwareengineeringproject.db.food.SampleFood
 import com.example.softwareengineeringproject.db.nutrient.DailyNutrientIntake
-import com.example.softwareengineeringproject.db.nutrient.NutrientIntake
+import com.example.softwareengineeringproject.db.nutrient.Nutrient
+import com.example.softwareengineeringproject.db.nutrient.NutrientContent
 import com.example.softwareengineeringproject.db.nutrient.NutrientIntakeHistory
 import com.example.softwareengineeringproject.db.user.Birthdate
 import com.example.softwareengineeringproject.db.user.Goal
@@ -243,17 +244,12 @@ class MainViewModel: ViewModel() {
 
                 user1.diary = diary1
 
+                user1.nutrientIntakeHistory!!.dailyNutrientIntake
+
                 var nutrientIntakeHistory1 = NutrientIntakeHistory().apply{
-                    dailyNutrientIntake = realmListOf(
-                        DailyNutrientIntake().apply{
-                            creationDate = RealmInstant.now()
-                            nutrientIntake = realmListOf(
-                                NutrientIntake().apply {
-                                    nutrient =
-                                }
-                            )
-                        }
-                    )
+
+                    dailyNutrientIntake = realmListOf(createDailyNutrientIntake())
+
                 }
 
 //                var address2 = Address().apply {
@@ -338,6 +334,137 @@ class MainViewModel: ViewModel() {
             }
 
         }
+    }
+    private fun createDailyNutrientIntake(): DailyNutrientIntake{
+        return DailyNutrientIntake().apply {
+            nutrientIntake = createDefaultNutrientContent()
+            creationDate = RealmInstant.now()
+        }
+    }
+    private fun createDefaultNutrientContent(): RealmList<NutrientContent> {
+        return realmListOf(
+            NutrientContent().apply {
+                nutrient = Nutrient().apply {
+                    nutrientName = "Vitamin A"
+                    unit = "µg"
+                }
+                content = 0.0
+            },
+            NutrientContent().apply {
+                nutrient = Nutrient().apply {
+                    nutrientName = "Vitamin C"
+                    unit = "µg"
+                }
+                content = 0.0
+            },
+            NutrientContent().apply {
+                nutrient = Nutrient().apply {
+                    nutrientName = "Calcium"
+                    unit = "mg"
+                }
+                content = 0.0
+            },
+            NutrientContent().apply {
+                nutrient = Nutrient().apply {
+                    nutrientName = "Potassium"
+                    unit = "mg"
+                }
+                content = 0.0
+            },
+            NutrientContent().apply {
+                nutrient = Nutrient().apply {
+                    nutrientName = "Sodium"
+                    unit = "mg"
+                }
+                content = 0.0
+            },
+            NutrientContent().apply {
+                nutrient = Nutrient().apply {
+                    nutrientName = "Magnesium"
+                    unit = "mg"
+                }
+                content = 0.0
+            },
+            NutrientContent().apply {
+                nutrient = Nutrient().apply {
+                    nutrientName = "Iron"
+                    unit = "mg"
+                }
+                content = 0.0
+            },
+            NutrientContent().apply {
+                nutrient = Nutrient().apply {
+                    nutrientName = "Zinc"
+                    unit = "mg"
+                }
+                content = 0.0
+            },
+            NutrientContent().apply {
+                nutrient = Nutrient().apply {
+                    nutrientName = "Selenium"
+                    unit = "µg"
+                }
+                content = 0.0
+            },
+
+            NutrientContent().apply {
+                nutrient = Nutrient().apply {
+                    nutrientName = "Saturated Fat"
+                    unit = "g"
+                }
+                content = 0.0
+            },
+            NutrientContent().apply {
+                nutrient = Nutrient().apply {
+                    nutrientName = "Trans Fat"
+                    unit = "g"
+                }
+                content = 0.0
+            },
+            NutrientContent().apply {
+                nutrient = Nutrient().apply {
+                    nutrientName = "Polyunsaturated Fat"
+                    unit = "g"
+                }
+                content = 0.0
+            },
+            NutrientContent().apply {
+                nutrient = Nutrient().apply {
+                    nutrientName = "Monounsaturated Fat"
+                    unit = "g"
+                }
+                content = 0.0
+            },
+            NutrientContent().apply {
+                nutrient = Nutrient().apply {
+                    nutrientName = "Cholesterol"
+                    unit = "mg"
+                }
+                content = 0.0
+            },
+            NutrientContent().apply {
+                nutrient = Nutrient().apply {
+                    nutrientName = "Protein"
+                    unit = "g"
+                }
+                content = 0.0
+            },
+            NutrientContent().apply {
+                nutrient = Nutrient().apply {
+                    nutrientName = "Carbohydrates"
+                    unit = "g"
+                }
+                content = 0.0
+            },
+            NutrientContent().apply {
+                nutrient = Nutrient().apply {
+                    nutrientName = "Water"
+                    unit = "mL"
+                }
+                content = 0.0
+            }
+
+        )
     }
     private suspend fun clearDatabase() {
         realm.write{

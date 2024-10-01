@@ -2,9 +2,9 @@ package com.example.softwareengineeringproject.db.nutrient
 
 import io.realm.kotlin.types.EmbeddedRealmObject
 
-class NutrientIntake : EmbeddedRealmObject {
+class NutrientContent : EmbeddedRealmObject {
 
     var nutrient: Nutrient? = null
-    var intake: Double = 0.0
+    var content: Double = 0.0
 
 }

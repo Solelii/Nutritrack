@@ -12,6 +12,7 @@ import com.example.softwareengineeringproject.db.food.NutritionalContent
 import com.example.softwareengineeringproject.db.food.OpenFoodFactsFood
 import com.example.softwareengineeringproject.db.food.SampleFood
 import com.example.softwareengineeringproject.db.nutrient.Nutrient
+import com.example.softwareengineeringproject.db.nutrient.NutrientContent
 import com.example.softwareengineeringproject.db.nutrient.NutrientIntakeHistory
 import com.example.softwareengineeringproject.db.nutrient.RDA
 import com.example.softwareengineeringproject.db.user.Accounts
@@ -73,15 +74,16 @@ class App: Application() {
                     Water::class,
 
                     //Food
-                    DailyNutrientIntake::class,
                     NutritionalContent::class,
                     OpenFoodFactsFood::class,
                     SampleFood::class,
 
                     //Nutrient
+                    DailyNutrientIntake::class,
                     Nutrient::class,
-                    RDA::class,
+                    NutrientContent::class,
                     NutrientIntakeHistory::class,
+                    RDA::class,
 
                     //User
                     User::class,
