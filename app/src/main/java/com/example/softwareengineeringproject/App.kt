@@ -6,8 +6,8 @@ import com.example.softwareengineeringproject.db.diary.Diary
 import com.example.softwareengineeringproject.db.diary.Dinner
 import com.example.softwareengineeringproject.db.diary.Lunch
 import com.example.softwareengineeringproject.db.diary.Snacks
-import com.example.softwareengineeringproject.db.diary.water.Cup
 import com.example.softwareengineeringproject.db.diary.water.Water
+import com.example.softwareengineeringproject.db.food.DailyNutrientIntake
 import com.example.softwareengineeringproject.db.food.NutritionalContent
 import com.example.softwareengineeringproject.db.food.OpenFoodFactsFood
 import com.example.softwareengineeringproject.db.food.SampleFood
@@ -15,6 +15,7 @@ import com.example.softwareengineeringproject.db.nutrient.Nutrient
 import com.example.softwareengineeringproject.db.nutrient.NutrientIntakeHistory
 import com.example.softwareengineeringproject.db.nutrient.RDA
 import com.example.softwareengineeringproject.db.user.Accounts
+import com.example.softwareengineeringproject.db.user.Birthdate
 import com.example.softwareengineeringproject.db.user.Goal
 import com.example.softwareengineeringproject.db.user.User
 import com.example.softwareengineeringproject.db.user.WeightInput
@@ -62,24 +63,33 @@ class App: Application() {
         realm = Realm.open(
             configuration = RealmConfiguration.create(
                 schema = setOf(
+
+                    //Diary
                     Diary::class,
                     Breakfast::class,
                     Lunch::class,
                     Dinner::class,
                     Snacks::class,
                     Water::class,
-                    Cup::class,
+
+                    //Food
+                    DailyNutrientIntake::class,
                     NutritionalContent::class,
                     OpenFoodFactsFood::class,
                     SampleFood::class,
+
+                    //Nutrient
                     Nutrient::class,
                     RDA::class,
-                    User::class,
                     NutrientIntakeHistory::class,
+
+                    //User
+                    User::class,
                     Goal::class,
                     Accounts::class,
                     WeightRecord::class,
                     WeightInput::class,
+                    Birthdate::class
                 )
             )
         )

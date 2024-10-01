@@ -23,16 +23,17 @@ class User: RealmObject {
         Mark the field with `@Ignore` to suppress this error.
         Date() from java.util is not supported by Realm-Kotlin sdk
      */
-    var birthDate: RealmInstant = RealmInstant.now()
+    var birthDate: Birthdate? = null
     var goal: Goal? = null
     var activityLevel: Int = 0
-    var sex: String = ""
+    //1 = male, 0 = female
+    var sex: Int = -1
 
     /*
         Use a strong and secure hashing algorithm like bcrypt, Argon2, or PBKDF2.
         These algorithms are designed specifically for hashing passwords and include features to mitigate brute-force attacks.
      */
-
+    var height : Double = 0.0
     var password: String = "" //must be hashed
 
     /*
@@ -42,5 +43,4 @@ class User: RealmObject {
      */
 
     var salt: String = ""
-    var cupSize: Double = 16.0
 }
