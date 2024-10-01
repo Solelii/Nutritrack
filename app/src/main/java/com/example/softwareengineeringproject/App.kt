@@ -7,7 +7,7 @@ import com.example.softwareengineeringproject.db.diary.Dinner
 import com.example.softwareengineeringproject.db.diary.Lunch
 import com.example.softwareengineeringproject.db.diary.Snacks
 import com.example.softwareengineeringproject.db.diary.water.Water
-import com.example.softwareengineeringproject.db.food.DailyNutrientIntake
+import com.example.softwareengineeringproject.db.nutrient.DailyNutrientIntake
 import com.example.softwareengineeringproject.db.food.NutritionalContent
 import com.example.softwareengineeringproject.db.food.OpenFoodFactsFood
 import com.example.softwareengineeringproject.db.food.SampleFood

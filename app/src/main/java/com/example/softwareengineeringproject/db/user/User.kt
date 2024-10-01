@@ -1,6 +1,7 @@
 package com.example.softwareengineeringproject.db.user
 
 import com.example.softwareengineeringproject.db.diary.Diary
+import com.example.softwareengineeringproject.db.nutrient.NutrientIntakeHistory
 import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.types.RealmInstant
 import io.realm.kotlin.types.RealmList
@@ -43,4 +44,12 @@ class User: RealmObject {
      */
 
     var salt: String = ""
+
+    var diary: Diary? = null
+
+    //Make the object model to resemble a connected graph. Might have more overhead than
+    //disconnected object models, but we'll check it
+
+    var nutrientIntakeHistory: NutrientIntakeHistory? = null
+
 }
