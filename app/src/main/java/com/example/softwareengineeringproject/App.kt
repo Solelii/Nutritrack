@@ -21,8 +21,13 @@ import com.example.softwareengineeringproject.db.user.Goal
 import com.example.softwareengineeringproject.db.user.User
 import com.example.softwareengineeringproject.db.user.WeightInput
 import com.example.softwareengineeringproject.db.user.WeightRecord
+import io.realm.kotlin.MutableRealm
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
+import io.realm.kotlin.dynamic.DynamicMutableRealm
+import io.realm.kotlin.dynamic.DynamicMutableRealmObject
+import io.realm.kotlin.dynamic.DynamicRealm
+import io.realm.kotlin.dynamic.DynamicRealmObject
 import io.realm.kotlin.migration.AutomaticSchemaMigration
 
 //extends to application(), which is the Base class for maintaining global application state.
@@ -34,6 +39,14 @@ class App: Application() {
         /*
             lateinit means the realm property will be initialized later (in the onCreate() function).
             It avoids initialization during object creation, ensuring the realm instance is created after the application starts.
+         */
+
+        /*
+            Realm = read only database
+            MutableRealm = read write database
+            There's no way to configure a mutable realm. Create a realm instance first, then make it
+            into a mutable realm using realm.write
+
          */
 
         lateinit var realm: Realm
@@ -97,11 +110,56 @@ class App: Application() {
         )
             .name("realm.realm")
             .schemaVersion(1)
+            .migration(AutomaticSchemaMigration{
+                val oldRealm = it.oldRealm
+                val newRealm = it.newRealm
+
+                // Access old objects with the string based API as DynamicRealmObjects
+
+                /*
+                    A Dynamic Realm allows you to access and modify data in a Realm
+                    file without knowing the schema at compile time.
+
+                    "trust me, this object and field exist"
+
+                 */
+
+                val oldObjects = oldRealm.query("User").find()
+
+//                for (oldObject in oldObjects) {
+//
+//                    val fieldValue: String = oldObject.getValue("fieldName", String::class)
+//
+//                    val child: DynamicRealmObject? = oldObject.getObject("childObjects")
+//                }
+
+
+
+                // Access migrated objects as mutable objects in the migrated realm. Unmodified schema properties will be left as is
+                val oldObjectInMigratedRealm: DynamicMutableRealmObject? =
+                    newRealm.findLatest(oldObjects[0])
+                oldObjectInMigratedRealm?.let {
+                    it.set("fieldName", "new field value")
+                }
+
+                // Fast iteration of all objects in the old Realm
+                it.enumerate("ModelClass") { oldObject: DynamicRealmObject, newObject: DynamicMutableRealmObject? ->
+                    // Some common use cases are highlighted at
+                    // https://www.mongodb.com/docs/realm-sdks/kotlin/1.0.2/library-base/-realm%20-kotlin%20-s-d-k/io.realm.kotlin.migration/-automatic-schema-migration/-migration-context/enumerate.html
+                }
+
+                // Creating of new objects from scratch in the migrated realm
+                val scratchObjectInMigratedRealm = newRealm.copyToRealm(
+                    DynamicMutableRealmObject.create("ModelClass", mapOf("fieldName" to "scratch value"))
+                )
+            })
             .build()
 
-        realm = Realm.open(config)
+
 
     }
+
+
 
     override fun onTerminate() {
         super.onTerminate()

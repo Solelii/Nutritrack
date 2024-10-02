@@ -134,6 +134,14 @@ class MainViewModel: ViewModel() {
             realm.write {
 
                 /*
+                    Set realm to mutableRealm
+                    source: chatgpt
+                    wala sa docu
+                 */
+
+                val realm = this
+
+                /*
                     apply is used to initialize the properties of each Address object within a single block.
                  */
 
