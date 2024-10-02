@@ -244,13 +244,14 @@ class MainViewModel: ViewModel() {
 
                 user1.diary = diary1
 
-                user1.nutrientIntakeHistory!!.dailyNutrientIntake
 
                 var nutrientIntakeHistory1 = NutrientIntakeHistory().apply{
 
                     dailyNutrientIntake = realmListOf(createDailyNutrientIntake())
 
                 }
+
+                user1.nutrientIntakeHistory = nutrientIntakeHistory1
 
 //                var address2 = Address().apply {
 //
@@ -471,7 +472,5 @@ class MainViewModel: ViewModel() {
             deleteAll()
         }
     }
-
-
 
 }

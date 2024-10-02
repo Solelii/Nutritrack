@@ -7,10 +7,10 @@ import com.example.softwareengineeringproject.db.diary.Dinner
 import com.example.softwareengineeringproject.db.diary.Lunch
 import com.example.softwareengineeringproject.db.diary.Snacks
 import com.example.softwareengineeringproject.db.diary.water.Water
-import com.example.softwareengineeringproject.db.nutrient.DailyNutrientIntake
 import com.example.softwareengineeringproject.db.food.NutritionalContent
 import com.example.softwareengineeringproject.db.food.OpenFoodFactsFood
 import com.example.softwareengineeringproject.db.food.SampleFood
+import com.example.softwareengineeringproject.db.nutrient.DailyNutrientIntake
 import com.example.softwareengineeringproject.db.nutrient.Nutrient
 import com.example.softwareengineeringproject.db.nutrient.NutrientContent
 import com.example.softwareengineeringproject.db.nutrient.NutrientIntakeHistory
@@ -23,6 +23,7 @@ import com.example.softwareengineeringproject.db.user.WeightInput
 import com.example.softwareengineeringproject.db.user.WeightRecord
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
+import io.realm.kotlin.migration.AutomaticSchemaMigration
 
 //extends to application(), which is the Base class for maintaining global application state.
 
@@ -61,10 +62,10 @@ class App: Application() {
             These classes represent the structure of your database. They are used to store and retrieve information from the Realm database.
          */
 
-        realm = Realm.open(
-            configuration = RealmConfiguration.create(
-                schema = setOf(
+        //add migration
 
+        val config = RealmConfiguration.Builder(
+            schema = setOf(
                     //Diary
                     Diary::class,
                     Breakfast::class,
@@ -93,8 +94,13 @@ class App: Application() {
                     WeightInput::class,
                     Birthdate::class
                 )
-            )
         )
+            .name("realm.realm")
+            .schemaVersion(1)
+            .build()
+
+        realm = Realm.open(config)
+
     }
 
     override fun onTerminate() {
