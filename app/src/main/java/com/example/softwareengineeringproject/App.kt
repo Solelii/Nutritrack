@@ -30,6 +30,7 @@ import io.realm.kotlin.dynamic.DynamicRealm
 import io.realm.kotlin.dynamic.DynamicRealmObject
 import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.migration.AutomaticSchemaMigration
+import io.realm.kotlin.types.RealmList
 
 //extends to application(), which is the Base class for maintaining global application state.
 
@@ -130,6 +131,9 @@ class App: Application() {
                     It abstracts the creation of an anonymous object that implements the interface.
 
                     oldRealm and newRealm are properties from MigrationContext that contains the old and new schema
+
+                    newRealm only contains the updated objects, but it doesn't have the objects that weren't changed,
+                    so mapping is still needed
                  */
 
                 val oldRealm = context.oldRealm
@@ -145,10 +149,15 @@ class App: Application() {
 
                     DynamicMutableRealm is just the mutable version of Dynamic Realm
 
-                    query may return data with the same reference type that it received, but it can also
+                    .query() may return data with the same reference type that it received, but it can also
                     return a specific realm object just like in this case. This is because we're using the
                     'out' keyword, where it can return different types of data as long as the data
                     is a subclass of the received data type.
+
+                    .find() returns an object that implements RealmResults with dynamicResults as the baseRealmObject
+                    There must be an anonymous class that was created behind the scenes that implements RealmResults,
+                    and that is oldObjects, which is also in a list form.
+
                  */
 
                 val oldObjects = oldRealm.query("User").find()
@@ -157,9 +166,12 @@ class App: Application() {
 
                 //val oldToNewObjectsMigration = realmListOf(DynamicMutableRealmObject)? = newRealm.findLatest(oldObjects[0])
 
-                /*
-                val oldObjectInMigratedRealm: DynamicMutableRealmObject? =
-                    newRealm.findLatest(oldObjects[0])
+
+                val oldObjectInMigratedRealm: RealmList<DynamicMutableRealmObject?> = realmListOf(
+                    newRealm.findLatest(oldObjects[0]),
+                    newRealm.findLatest(oldObjects[0]),
+
+                )
                 oldObjectInMigratedRealm?.let {
                     it.set("fieldName", "new field value")
                 }
@@ -167,14 +179,17 @@ class App: Application() {
                 // Fast iteration of all objects in the old Realm
                 context.enumerate("ModelClass") { oldObject: DynamicRealmObject, newObject: DynamicMutableRealmObject? ->
                     // Some common use cases are highlighted at
-                    // https://www.mongodb.com/docs/realm-sdks/kotlin/1.0.2/library-base/-realm%20-kotlin%20-s-d-k/io.realm.kotlin.migration/-automatic-schema-migration/-migration-context/enumerate.html
+                    // https://www.mongodb.com/docs/realm-sdks/kotlin/latest/library-base/io.realm.kotlin.migration/-automatic-schema-migration/-migration-context/index.html
+
+
+
                 }
 
                 // Creating of new objects from scratch in the migrated realm
                 val scratchObjectInMigratedRealm = newRealm.copyToRealm(
                     DynamicMutableRealmObject.create("ModelClass", mapOf("fieldName" to "scratch value"))
                 )
-                */
+
             })
             .build()
 
