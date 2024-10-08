@@ -9,6 +9,7 @@ import com.example.softwareengineeringproject.db.diary.Dinner
 import com.example.softwareengineeringproject.db.diary.Lunch
 import com.example.softwareengineeringproject.db.diary.Snacks
 import com.example.softwareengineeringproject.db.diary.water.Water
+import com.example.softwareengineeringproject.db.food.NutritionalContent
 import com.example.softwareengineeringproject.db.food.SampleFood
 import com.example.softwareengineeringproject.db.nutrient.DailyNutrientIntake
 import com.example.softwareengineeringproject.db.nutrient.Nutrient
@@ -133,10 +134,12 @@ class MainViewModel: ViewModel() {
 
             realm.write {
 
-                val realm = this
-
                 /*
                     apply is used to initialize the properties of each Address object within a single block.
+                 */
+
+                /*
+                    Sample users
                  */
 
                 var user1 = User().apply {
@@ -147,7 +150,7 @@ class MainViewModel: ViewModel() {
                         day = 1
                         year = 1
                     }
-                    height = 5.7
+                    height = 170.0
                     goal = Goal().apply {
                         goal = "Lose Weight"
                         currentWeight = 60.0
@@ -172,7 +175,7 @@ class MainViewModel: ViewModel() {
                         //should not ask for user for target weight because it is already
                         //stated that the user wants to maintain his/her weight
                     }
-                    height = 5.6
+                    height = 170.0
                     activityLevel = 1
                     sex = 0
                     password = "samplePassword2"
@@ -191,7 +194,7 @@ class MainViewModel: ViewModel() {
                         currentWeight = 40.0
                         targetWeight = 50.0
                     }
-                    height = 5.8
+                    height = 170.0
                     activityLevel = 1
                     sex = 0
                     password = "samplePassword3"
@@ -202,10 +205,37 @@ class MainViewModel: ViewModel() {
                     breakfast = Breakfast().apply{
                         foodEntry = realmListOf(
                             SampleFood().apply{
-
-                            },
-                            SampleFood().apply{
-
+                                foodName = "Oreo"
+                                nutritionalContent = realmListOf(
+                                    NutritionalContent().apply{
+                                        nutrient = Nutrient().apply{
+                                            nutrientName = "Saturated Fat"
+                                            unit = "g"
+                                        }
+                                        content = 6.0
+                                    },
+                                    NutritionalContent().apply{
+                                        nutrient = Nutrient().apply{
+                                            nutrientName = "Cholesterol"
+                                            unit = "g"
+                                        }
+                                        content = 0.0
+                                    },
+                                    NutritionalContent().apply{
+                                        nutrient = Nutrient().apply{
+                                            nutrientName = "Sodium"
+                                            unit = "mg"
+                                        }
+                                        content = 471.0
+                                    },
+                                    NutritionalContent().apply{
+                                        nutrient = Nutrient().apply{
+                                            nutrientName = "Potassium"
+                                            unit = "mg"
+                                        }
+                                        content = 180.0
+                                    },
+                                )
                             }
                         )
                     }
@@ -255,10 +285,23 @@ class MainViewModel: ViewModel() {
 
                 user1.nutrientIntakeHistory = nutrientIntakeHistory1
 
+                //use frozen to frozen the diary for this read/write
+                //`!!` non-nullable operator
+                user1.nutrientIntakeHistory = calculateDailyNutrientIntake(user1.diary!!)
+
             }
 
         }
     }
+
+    private fun calculateDailyNutrientIntake(diary : Diary): NutrientIntakeHistory? {
+
+
+
+    }
+
+
+
     private fun createDailyNutrientIntake(): DailyNutrientIntake{
         return DailyNutrientIntake().apply {
             nutrientIntake = createDefaultNutrientContent()
@@ -387,7 +430,6 @@ class MainViewModel: ViewModel() {
                 }
                 content = 0.0
             }
-
         )
     }
     private suspend fun clearDatabase() {

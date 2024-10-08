@@ -11,8 +11,6 @@ class DailyNutrientIntake: RealmObject {
 
     var creationDate: RealmInstant = RealmInstant.now()
     //make default nutrients locally
-    var nutrientIntake: RealmList<NutrientContent> = realmListOf(
-
-    )
+    var nutrientIntake: RealmList<NutrientContent> = realmListOf()
 
 }

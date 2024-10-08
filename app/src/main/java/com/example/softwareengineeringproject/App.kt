@@ -109,6 +109,7 @@ class App: Application() {
                     Birthdate::class
                 )
         )
+            .deleteRealmIfMigrationNeeded()
             .name("realm.realm")
             .build()
     }
