@@ -16,6 +16,7 @@ class SampleFood: RealmObject {
     */
     var foodName: String = ""
     var nutritionalContent: RealmList<NutritionalContent> = realmListOf()
+    @PrimaryKey
     var barcode: String = ""
 
 }

@@ -15,6 +15,7 @@ class Diary: RealmObject {
         [Realm] Realm does not support persisting properties of this type.
         Mark the field with `@Ignore` to suppress this error.
      */
+    //upon creation of an instance of diary, realminstant.now is automatically invoked
     var creationDate: RealmInstant = RealmInstant.now()
     var breakfast: Breakfast? = null
     var lunch: Lunch? = null
