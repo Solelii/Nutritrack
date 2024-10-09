@@ -78,8 +78,45 @@ class App: Application() {
 
         //add migration
 
-        val config = RealmConfiguration.Builder(
-            schema = setOf(
+//        val config = RealmConfiguration.Builder(
+//            schema = setOf(
+//                    //Diary
+//                    Diary::class,
+//                    Breakfast::class,
+//                    Lunch::class,
+//                    Dinner::class,
+//                    Snacks::class,
+//                    Water::class,
+//
+//                    //Food
+//                    NutritionalContent::class,
+//                    OpenFoodFactsFood::class,
+//                    SampleFood::class,
+//
+//                    //Nutrient
+//                    DailyNutrientIntake::class,
+//                    Nutrient::class,
+//                    NutrientContent::class,
+//                    NutrientIntakeHistory::class,
+//                    RDA::class,
+//
+//                    //User
+//                    User::class,
+//                    Goal::class,
+//                    Accounts::class,
+//                    WeightRecord::class,
+//                    WeightInput::class,
+//                    Birthdate::class
+//                )
+//        )
+//            .deleteRealmIfMigrationNeeded()
+//            .name("realm.realm")
+//            .build()
+//        realm = Realm.open(config)
+
+        realm = Realm.open(
+            configuration = RealmConfiguration.create(
+                schema = setOf(
                     //Diary
                     Diary::class,
                     Breakfast::class,
@@ -108,13 +145,9 @@ class App: Application() {
                     WeightInput::class,
                     Birthdate::class
                 )
+            )
         )
-            .deleteRealmIfMigrationNeeded()
-            .name("realm.realm")
-            .build()
     }
-
-
 
     override fun onTerminate() {
         super.onTerminate()
