@@ -24,8 +24,8 @@ class User: RealmObject {
         Mark the field with `@Ignore` to suppress this error.
         Date() from java.util is not supported by Realm-Kotlin sdk
      */
-    var birthDate: Birthdate = Birthdate()
-    var goal: Goal = Goal()
+    var birthDate: Birthdate? = null
+    var goal: Goal? = null
     var activityLevel: Int = 0
     //1 = male, 0 = female
     var sex: Int = -1
@@ -45,11 +45,11 @@ class User: RealmObject {
 
     var salt: String = ""
 
-    var diary: Diary = Diary()
+    var diary: Diary? = null
 
     //Make the object model to resemble a connected graph. Might have more overhead than
     //disconnected object models, but we'll check it
 
-    var nutrientIntakeHistory: NutrientIntakeHistory = NutrientIntakeHistory()
+    var nutrientIntakeHistory: NutrientIntakeHistory? = null
 
 }

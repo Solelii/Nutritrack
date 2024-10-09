@@ -21,16 +21,8 @@ import com.example.softwareengineeringproject.db.user.Goal
 import com.example.softwareengineeringproject.db.user.User
 import com.example.softwareengineeringproject.db.user.WeightInput
 import com.example.softwareengineeringproject.db.user.WeightRecord
-import io.realm.kotlin.MutableRealm
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
-import io.realm.kotlin.dynamic.DynamicMutableRealm
-import io.realm.kotlin.dynamic.DynamicMutableRealmObject
-import io.realm.kotlin.dynamic.DynamicRealm
-import io.realm.kotlin.dynamic.DynamicRealmObject
-import io.realm.kotlin.ext.realmListOf
-import io.realm.kotlin.migration.AutomaticSchemaMigration
-import io.realm.kotlin.types.RealmList
 
 //extends to application(), which is the Base class for maintaining global application state.
 
@@ -78,45 +70,8 @@ class App: Application() {
 
         //add migration
 
-//        val config = RealmConfiguration.Builder(
-//            schema = setOf(
-//                    //Diary
-//                    Diary::class,
-//                    Breakfast::class,
-//                    Lunch::class,
-//                    Dinner::class,
-//                    Snacks::class,
-//                    Water::class,
-//
-//                    //Food
-//                    NutritionalContent::class,
-//                    OpenFoodFactsFood::class,
-//                    SampleFood::class,
-//
-//                    //Nutrient
-//                    DailyNutrientIntake::class,
-//                    Nutrient::class,
-//                    NutrientContent::class,
-//                    NutrientIntakeHistory::class,
-//                    RDA::class,
-//
-//                    //User
-//                    User::class,
-//                    Goal::class,
-//                    Accounts::class,
-//                    WeightRecord::class,
-//                    WeightInput::class,
-//                    Birthdate::class
-//                )
-//        )
-//            .deleteRealmIfMigrationNeeded()
-//            .name("realm.realm")
-//            .build()
-//        realm = Realm.open(config)
-
-        realm = Realm.open(
-            configuration = RealmConfiguration.create(
-                schema = setOf(
+        val config = RealmConfiguration.Builder(
+            schema = setOf(
                     //Diary
                     Diary::class,
                     Breakfast::class,
@@ -145,8 +100,12 @@ class App: Application() {
                     WeightInput::class,
                     Birthdate::class
                 )
-            )
         )
+            .deleteRealmIfMigrationNeeded()
+            .name("realm.realm")
+            .build()
+        realm = Realm.open(config)
+
     }
 
     override fun onTerminate() {
