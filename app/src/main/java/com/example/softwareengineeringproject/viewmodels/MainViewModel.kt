@@ -31,138 +31,33 @@ import kotlinx.coroutines.launch
 class MainViewModel: ViewModel() {
     companion object {
         //can use inline?
-        private fun createDailyNutrientIntake(): DailyNutrientIntake{
-            return DailyNutrientIntake().apply {
-                nutrientIntake = createDefaultNutrientContent()
-            }
-        }
-        private fun createDefaultNutrientContent(): RealmList<NutrientContent> {
-            return realmListOf(
-                NutrientContent().apply {
-                    nutrient = Nutrient().apply {
-                        nutrientName = "Vitamin A"
-                        unit = "µg"
-                    }
-                    content = 0.0
-                },
-                NutrientContent().apply {
-                    nutrient = Nutrient().apply {
-                        nutrientName = "Vitamin C"
-                        unit = "µg"
-                    }
-                    content = 0.0
-                },
-                NutrientContent().apply {
-                    nutrient = Nutrient().apply {
-                        nutrientName = "Calcium"
-                        unit = "mg"
-                    }
-                    content = 0.0
-                },
-                NutrientContent().apply {
-                    nutrient = Nutrient().apply {
-                        nutrientName = "Potassium"
-                        unit = "mg"
-                    }
-                    content = 0.0
-                },
-                NutrientContent().apply {
-                    nutrient = Nutrient().apply {
-                        nutrientName = "Sodium"
-                        unit = "mg"
-                    }
-                    content = 0.0
-                },
-                NutrientContent().apply {
-                    nutrient = Nutrient().apply {
-                        nutrientName = "Magnesium"
-                        unit = "mg"
-                    }
-                    content = 0.0
-                },
-                NutrientContent().apply {
-                    nutrient = Nutrient().apply {
-                        nutrientName = "Iron"
-                        unit = "mg"
-                    }
-                    content = 0.0
-                },
-                NutrientContent().apply {
-                    nutrient = Nutrient().apply {
-                        nutrientName = "Zinc"
-                        unit = "mg"
-                    }
-                    content = 0.0
-                },
-                NutrientContent().apply {
-                    nutrient = Nutrient().apply {
-                        nutrientName = "Selenium"
-                        unit = "µg"
-                    }
-                    content = 0.0
-                },
+        //can use operator?
+        //deleteFoodFromDailyNutrientIntake is similar to calculateDailyNutrientIntake. Reduce boilerplate code
+        private fun deleteFoodFromDailyNutrientIntake(
+            nutrientContent: RealmList<NutritionalContent>,
+            dailyNutrientIntake : DailyNutrientIntake
+        ): DailyNutrientIntake{
 
-                NutrientContent().apply {
-                    nutrient = Nutrient().apply {
-                        nutrientName = "Saturated Fat"
-                        unit = "g"
+            for (nutrient in nutrientContent){
+                for (nutrientIntake in dailyNutrientIntake.nutrientIntake){
+                    if (nutrientIntake.nutrient!!.nutrientName == nutrient.nutrient!!.nutrientName){
+                        //retrieves the nutrient in dailyNutrientIntake
+                        //add nutrient.content to dailyNutrientIntake.nutrient
+                        dailyNutrientIntake.nutrientIntake
+                            .get(dailyNutrientIntake.nutrientIntake.indexOf(nutrientIntake))
+                            .content -= nutrient.content
+                        break
                     }
-                    content = 0.0
-                },
-                NutrientContent().apply {
-                    nutrient = Nutrient().apply {
-                        nutrientName = "Trans Fat"
-                        unit = "g"
-                    }
-                    content = 0.0
-                },
-                NutrientContent().apply {
-                    nutrient = Nutrient().apply {
-                        nutrientName = "Polyunsaturated Fat"
-                        unit = "g"
-                    }
-                    content = 0.0
-                },
-                NutrientContent().apply {
-                    nutrient = Nutrient().apply {
-                        nutrientName = "Monounsaturated Fat"
-                        unit = "g"
-                    }
-                    content = 0.0
-                },
-                NutrientContent().apply {
-                    nutrient = Nutrient().apply {
-                        nutrientName = "Cholesterol"
-                        unit = "mg"
-                    }
-                    content = 0.0
-                },
-                NutrientContent().apply {
-                    nutrient = Nutrient().apply {
-                        nutrientName = "Protein"
-                        unit = "g"
-                    }
-                    content = 0.0
-                },
-                NutrientContent().apply {
-                    nutrient = Nutrient().apply {
-                        nutrientName = "Carbohydrates"
-                        unit = "g"
-                    }
-                    content = 0.0
-                },
-                NutrientContent().apply {
-                    nutrient = Nutrient().apply {
-                        nutrientName = "Water"
-                        unit = "mL"
-                    }
-                    content = 0.0
                 }
-            )
+            }
+            return dailyNutrientIntake
         }
 
         //better if the nutrientContent of the food is passed here instead of diary
-        private fun calculateDailyNutrientIntake(nutrientContent : RealmList<NutritionalContent>, dailyNutrientIntake : DailyNutrientIntake) : DailyNutrientIntake{
+        private fun calculateDailyNutrientIntake(
+            nutrientContent : RealmList<NutritionalContent>,
+            dailyNutrientIntake : DailyNutrientIntake
+        ): DailyNutrientIntake{
 
             for (nutrient in nutrientContent){
                 for (nutrientIntake in dailyNutrientIntake.nutrientIntake){
@@ -352,7 +247,7 @@ class MainViewModel: ViewModel() {
                     password = "samplePassword3"
                 }
 
-                var diary1 = Diary().apply{
+                user1.diary.apply{
                     creationDate = RealmInstant.now()
                     breakfast = Breakfast().apply{
                         foodEntry = realmListOf(
@@ -430,25 +325,17 @@ class MainViewModel: ViewModel() {
                     }
                 }
 
-                user1.diary = diary1
-
                 //dapat nasa initalData sa realmconfig
                 //dapat kasama rin yung dailynutrientintake and diary sa initialData para di na mamroblema
-                var nutrientIntakeHistory1 = NutrientIntakeHistory().apply{
 
-                    dailyNutrientIntake = realmListOf(createDailyNutrientIntake())
-
-                }
-
-                user1.nutrientIntakeHistory = nutrientIntakeHistory1
-
-                if (user1.nutrientIntakeHistory!!.dailyNutrientIntake.size == 0){
-                    user1.nutrientIntakeHistory!!.dailyNutrientIntake = createDailyNutrientIntake() as RealmList<DailyNutrientIntake>
-                }
 
                 //calculates the daily nutrient intake of the user
                 //pass the nutrientContent of the food
                 //has to send the latest dailyNutrientIntake to calculateDailyNutrientIntake
+
+                //sample nutrient content of oreo
+                //after pressing `add food` by the user, a copy of nutrientContent will be created
+                //to send to calculateDailyNutrientIntake
 
                 var nutrientContent : RealmList<NutritionalContent> = realmListOf(
                     NutritionalContent().apply{
@@ -481,9 +368,12 @@ class MainViewModel: ViewModel() {
                     }
                 )
 
+                //update nutrients (add)
                 user1.nutrientIntakeHistory!!.dailyNutrientIntake[user1.nutrientIntakeHistory!!.dailyNutrientIntake.size-1] =
                     calculateDailyNutrientIntake(nutrientContent, user1.nutrientIntakeHistory!!.dailyNutrientIntake[user1.nutrientIntakeHistory!!.dailyNutrientIntake.size-1])
-
+                //update nutrients (delete)
+                user1.nutrientIntakeHistory!!.dailyNutrientIntake[user1.nutrientIntakeHistory!!.dailyNutrientIntake.size-1] =
+                    deleteFoodFromDailyNutrientIntake(nutrientContent, user1.nutrientIntakeHistory!!.dailyNutrientIntake[user1.nutrientIntakeHistory!!.dailyNutrientIntake.size-1])
             }
 
         }

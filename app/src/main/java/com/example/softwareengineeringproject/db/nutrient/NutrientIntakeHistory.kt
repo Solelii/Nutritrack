@@ -6,6 +6,6 @@ import io.realm.kotlin.types.RealmObject
 
 class NutrientIntakeHistory : RealmObject {
 
-    var dailyNutrientIntake : RealmList<DailyNutrientIntake> = realmListOf()
+    var dailyNutrientIntake : RealmList<DailyNutrientIntake> = realmListOf(DailyNutrientIntake())
 
 }
