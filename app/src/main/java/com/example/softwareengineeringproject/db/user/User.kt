@@ -28,7 +28,7 @@ class User: RealmObject {
     var goal: Goal? = null
     var activityLevel: Int = 0
     //1 = male, 0 = female
-    var sex: Int = -1
+    var sex: String = ""
 
     /*
         Use a strong and secure hashing algorithm like bcrypt, Argon2, or PBKDF2.

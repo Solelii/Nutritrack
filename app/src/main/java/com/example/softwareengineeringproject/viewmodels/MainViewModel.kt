@@ -158,47 +158,8 @@ class MainViewModel: ViewModel() {
                         targetWeight = 50.0
                     }
                     activityLevel = 1
-                    sex = 0
+                    sex = "Female"
                     password = "samplePassword"
-                }
-
-                var user2 = User().apply {
-
-                    firstName = "Miyagi"
-                    birthDate = Birthdate().apply{
-                        month = 2
-                        day = 2
-                        year = 2
-                    }
-                    goal = Goal().apply {
-                        goal = "Maintain Weight"
-                        currentWeight = 45.0
-                        //should not ask for user for target weight because it is already
-                        //stated that the user wants to maintain his/her weight
-                    }
-                    height = 170.0
-                    activityLevel = 1
-                    sex = 0
-                    password = "samplePassword2"
-                }
-
-                var user3 = User().apply {
-
-                    firstName = "Eri"
-                    birthDate = Birthdate().apply{
-                        month = 2
-                        day = 2
-                        year = 2
-                    }
-                    goal = Goal().apply {
-                        goal = "Gain Weight"
-                        currentWeight = 40.0
-                        targetWeight = 50.0
-                    }
-                    height = 170.0
-                    activityLevel = 1
-                    sex = 0
-                    password = "samplePassword3"
                 }
 
                 user1.diary!!.apply{

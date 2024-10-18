@@ -23,6 +23,7 @@ import com.example.softwareengineeringproject.db.user.WeightInput
 import com.example.softwareengineeringproject.db.user.WeightRecord
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
+import io.realm.kotlin.ext.realmListOf
 
 //extends to application(), which is the Base class for maintaining global application state.
 
@@ -103,6 +104,153 @@ class App: Application() {
         )
             .deleteRealmIfMigrationNeeded()
             .name("realm.realm")
+            //Callback that will be triggered in order to write initial data when the Realm file is created for the first time.
+            .initialData {
+                copyToRealm(User().apply {
+
+                    firstName = "Holo"
+                    birthDate = Birthdate().apply{
+                        month = 1
+                        day = 1
+                        year = 1
+                    }
+                    height = 170.0
+                    goal = Goal().apply {
+                        goal = "Lose Weight"
+                        currentWeight = 60.0
+                        targetWeight = 50.0
+                    }
+                    activityLevel = 1
+                    sex = "Female"
+                    password = "samplePassword"
+                })
+                copyToRealm(
+
+                )
+                copyToRealm(DailyNutrientIntake().apply {
+                        realmListOf(
+                            NutrientContent().apply {
+                                nutrient = Nutrient().apply {
+                                    nutrientName = "Vitamin A"
+                                    unit = "µg"
+                                }
+                                content = 0.0
+                            },
+                            NutrientContent().apply {
+                                nutrient = Nutrient().apply {
+                                    nutrientName = "Vitamin C"
+                                    unit = "µg"
+                                }
+                                content = 0.0
+                            },
+                            NutrientContent().apply {
+                                nutrient = Nutrient().apply {
+                                    nutrientName = "Calcium"
+                                    unit = "mg"
+                                }
+                                content = 0.0
+                            },
+                            NutrientContent().apply {
+                                nutrient = Nutrient().apply {
+                                    nutrientName = "Potassium"
+                                    unit = "mg"
+                                }
+                                content = 0.0
+                            },
+                            NutrientContent().apply {
+                                nutrient = Nutrient().apply {
+                                    nutrientName = "Sodium"
+                                    unit = "mg"
+                                }
+                                content = 0.0
+                            },
+                            NutrientContent().apply {
+                                nutrient = Nutrient().apply {
+                                    nutrientName = "Magnesium"
+                                    unit = "mg"
+                                }
+                                content = 0.0
+                            },
+                            NutrientContent().apply {
+                                nutrient = Nutrient().apply {
+                                    nutrientName = "Iron"
+                                    unit = "mg"
+                                }
+                                content = 0.0
+                            },
+                            NutrientContent().apply {
+                                nutrient = Nutrient().apply {
+                                    nutrientName = "Zinc"
+                                    unit = "mg"
+                                }
+                                content = 0.0
+                            },
+                            NutrientContent().apply {
+                                nutrient = Nutrient().apply {
+                                    nutrientName = "Selenium"
+                                    unit = "µg"
+                                }
+                                content = 0.0
+                            },
+                            NutrientContent().apply {
+                                nutrient = Nutrient().apply {
+                                    nutrientName = "Saturated Fat"
+                                    unit = "g"
+                                }
+                                content = 0.0
+                            },
+                            NutrientContent().apply {
+                                nutrient = Nutrient().apply {
+                                    nutrientName = "Trans Fat"
+                                    unit = "g"
+                                }
+                                content = 0.0
+                            },
+                            NutrientContent().apply {
+                                nutrient = Nutrient().apply {
+                                    nutrientName = "Polyunsaturated Fat"
+                                    unit = "g"
+                                }
+                                content = 0.0
+                            },
+                            NutrientContent().apply {
+                                nutrient = Nutrient().apply {
+                                    nutrientName = "Monounsaturated Fat"
+                                    unit = "g"
+                                }
+                                content = 0.0
+                            },
+                            NutrientContent().apply {
+                                nutrient = Nutrient().apply {
+                                    nutrientName = "Cholesterol"
+                                    unit = "mg"
+                                }
+                                content = 0.0
+                            },
+                            NutrientContent().apply {
+                                nutrient = Nutrient().apply {
+                                    nutrientName = "Protein"
+                                    unit = "g"
+                                }
+                                content = 0.0
+                            },
+                            NutrientContent().apply {
+                                nutrient = Nutrient().apply {
+                                    nutrientName = "Carbohydrates"
+                                    unit = "g"
+                                }
+                                content = 0.0
+                            },
+                            NutrientContent().apply {
+                                nutrient = Nutrient().apply {
+                                    nutrientName = "Water"
+                                    unit = "mL"
+                                }
+                                content = 0.0
+                            }
+                        )
+                    })
+            }
             .build()
         realm = Realm.open(config)
 

@@ -31,6 +31,8 @@ class DataManipulator {
             }
         }
 
+        //mas maganda ata kung di na natin babalik yung nutrient content
+        //ieedit na mismo yung dailynutrientcontent para di na macreate bagong nutrientcontentlist
         fun resetNutrientContent() : RealmList<NutrientContent> {
             return realmListOf(
                 NutrientContent().apply {
@@ -232,50 +234,52 @@ class DataManipulator {
 
         .map is used to convert the data format from RealmResults to List<User>.
      */
-
-            val user = realm
-                .query<User>("User")
-                .asFlow()
-                .map { results ->
-                    results.list.toList()
-                }
-
-                /*
-                    he .stateIn() function in Kotlin’s Flow API is used to convert a Flow into
-                    a StateFlow, which is a state-holder that can be observed.
-                 */
-
-                .stateIn(
-                    /*
-                        viewModelScope:
-
-                        This is a coroutine scope tied to the lifecycle of the Repository
-                        Using coroutineScope ensures that the flow is automatically canceled
-                        when Repository is cleared, preventing memory leaks and unnecessary computations.
-
-                     */
-                    scope,
+        suspend fun createUser():StateFlow<List<User>>{
+                val user = realm
+                    .query<User>("User")
+                    .asFlow()
+                    .map { results ->
+                        results.list.toList()
+                    }
 
                     /*
-                        SharingStarted.WhileSubscribed():
-
-                        This parameter defines the strategy for when the StateFlow should be active.
-                        SharingStarted.WhileSubscribed() means the flow will remain active while there are active subscribers
-                        (collectors).
-
-                        It will be kept alive as long as there is at least one collector observing the flow.
-                        Once all collectors are gone, the flow will be stopped.
+                        he .stateIn() function in Kotlin’s Flow API is used to convert a Flow into
+                        a StateFlow, which is a state-holder that can be observed.
                      */
 
-                    SharingStarted.WhileSubscribed(),
+                    .stateIn(
+                        /*
+                            viewModelScope:
 
-                    /*
-                        Initial value before any data is emitted
-                     */
+                            This is a coroutine scope tied to the lifecycle of the Repository
+                            Using coroutineScope ensures that the flow is automatically canceled
+                            when Repository is cleared, preventing memory leaks and unnecessary computations.
 
-                    emptyList()
-                )
-            return user
+                         */
+                        scope,
+
+                        /*
+                            SharingStarted.WhileSubscribed():
+
+                            This parameter defines the strategy for when the StateFlow should be active.
+                            SharingStarted.WhileSubscribed() means the flow will remain active while there are active subscribers
+                            (collectors).
+
+                            It will be kept alive as long as there is at least one collector observing the flow.
+                            Once all collectors are gone, the flow will be stopped.
+                         */
+
+                        SharingStarted.WhileSubscribed(),
+
+                        /*
+                            Initial value before any data is emitted
+                         */
+
+                        emptyList()
+                    )
+                return user
+        }
+
         }
 
     }
