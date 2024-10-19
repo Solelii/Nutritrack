@@ -6,7 +6,7 @@ import java.util.Date
 
 class Water: RealmObject {
 
-    var cupSize: Double = 16.0
+    var ouncePerCup: Double = 8.0
     var total: Double = 0.0
 
 }
