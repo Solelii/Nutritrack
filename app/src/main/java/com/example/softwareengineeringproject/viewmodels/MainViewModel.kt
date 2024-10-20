@@ -21,276 +21,276 @@ import kotlinx.coroutines.launch
 
 class MainViewModel: ViewModel() {
 
-    /*
-        _realm holds a reference to the Realm database instance.
-        It is initialized by retrieving the realm instance from the MyApp class.
-
-        The _realm variable is used to perform database operations, such as writing and reading data.
-     */
-
-
-    /*
-        We query Courses since it is connected to all of the objects
-
-        .asFlow() returns the query as Flow so that we can react to the changes from the database asynchronously
-
-        .map function is used to transform the data emitted by a flow.
-        Specifically, the flow here is a query result from the Realm database,
-        and .map allows you to change or modify that result before it is passed along downstream.
-
-        .map is a transforming function from Kotlin's Flow API.
-        It takes each emitted item (in this case, results, which is the query result from Realm) and transforms it.
-
-        results.list.toList() is used to convert the query result (RealmResults) into a Kotlin List.
-
-        .map function takes the Realm query result (which is emitted as RealmResults)
-        and transforms it into a regular Kotlin List before passing it further downstream in the flow.
-
-        .map is used to convert the data format from RealmResults to List<User>.
-     */
-
-//    val user = realm
-//        .query<User>("User")
-//        .asFlow()
-//        .map { results ->
-//            results.list.toList()
+//    /*
+//        _realm holds a reference to the Realm database instance.
+//        It is initialized by retrieving the realm instance from the MyApp class.
+//
+//        The _realm variable is used to perform database operations, such as writing and reading data.
+//     */
+//
+//
+//    /*
+//        We query Courses since it is connected to all of the objects
+//
+//        .asFlow() returns the query as Flow so that we can react to the changes from the database asynchronously
+//
+//        .map function is used to transform the data emitted by a flow.
+//        Specifically, the flow here is a query result from the Realm database,
+//        and .map allows you to change or modify that result before it is passed along downstream.
+//
+//        .map is a transforming function from Kotlin's Flow API.
+//        It takes each emitted item (in this case, results, which is the query result from Realm) and transforms it.
+//
+//        results.list.toList() is used to convert the query result (RealmResults) into a Kotlin List.
+//
+//        .map function takes the Realm query result (which is emitted as RealmResults)
+//        and transforms it into a regular Kotlin List before passing it further downstream in the flow.
+//
+//        .map is used to convert the data format from RealmResults to List<User>.
+//     */
+//
+////    val user = realm
+////        .query<User>("User")
+////        .asFlow()
+////        .map { results ->
+////            results.list.toList()
+////        }
+////
+////        /*
+////            he .stateIn() function in Kotlin’s Flow API is used to convert a Flow into
+////            a StateFlow, which is a state-holder that can be observed.
+////         */
+////
+////        .stateIn(
+////            /*
+////                viewModelScope:
+////
+////                This is a coroutine scope tied to the lifecycle of the ViewModel.
+////                Using viewModelScope ensures that the flow is automatically canceled
+////                when the ViewModel is cleared, preventing memory leaks and unnecessary computations.
+////
+////             */
+////            viewModelScope,
+////
+////            /*
+////                SharingStarted.WhileSubscribed():
+////
+////                This parameter defines the strategy for when the StateFlow should be active.
+////                SharingStarted.WhileSubscribed() means the flow will remain active while there are active subscribers
+////                (collectors).
+////
+////                It will be kept alive as long as there is at least one collector observing the flow.
+////                Once all collectors are gone, the flow will be stopped.
+////             */
+////
+////            SharingStarted.WhileSubscribed(),
+////
+////            /*
+////                Initial value before any data is emitted
+////             */
+////
+////            emptyList()
+////        )
+//
+//    /*
+//        This function creates sample data entries in the Realm database.
+//
+//        It is executed within the viewModelScope.launch block,
+//        meaning the function is executed asynchronously using Kotlin coroutines.
+//
+//     */
+//
+//
+//    /*
+//        Used to initialize realmdb with the entries in this function.
+//        Once initialized, the data will persist in the database.
+//     */
+//
+//    //we can use lazy here to initialize one time
+//
+////    init {
+////
+////        createSampleEntries()
+////    }
+//
+//    private fun createSampleEntries() {
+//
+//        viewModelScope.launch {
+//
+//            //clearDatabase()
+//
+//            /*
+//                The write block is a Realm transaction where database changes (insertions/updates) are made.
+//            */
+//
+//            realm.write {
+//
+//                /*
+//                    apply is used to initialize the properties of each Address object within a single block.
+//                */
+//
+//                /*
+//                    Sample users
+//                */
+//
+//                var user1 = User().apply {
+//
+//                    firstName = "Holo"
+//                    birthDate = Birthdate().apply{
+//                        month = 1
+//                        day = 1
+//                        year = 1
+//                    }
+//                    height = 170.0
+//                    goal = Goal().apply {
+//                        goal = "Lose Weight"
+//                        currentWeight = 60.0
+//                        targetWeight = 50.0
+//                    }
+//                    activityLevel = 1
+//                    sex = "Female"
+//                    password = "samplePassword"
+//                }
+//
+//                user1.diary!!.apply{
+//                    creationDate = RealmInstant.now()
+//                    breakfast = Breakfast().apply{
+//                        foodEntry = realmListOf(
+//                            SampleFood().apply{
+//                                foodName = "Oreo"
+//                                nutritionalContent = realmListOf(
+//                                    NutritionalContent().apply{
+//                                        nutrient = Nutrient().apply{
+//                                            nutrientName = "Saturated Fat"
+//                                            unit = "g"
+//                                        }
+//                                        content = 6.0
+//                                    },
+//                                    NutritionalContent().apply{
+//                                        nutrient = Nutrient().apply{
+//                                            nutrientName = "Cholesterol"
+//                                            unit = "g"
+//                                        }
+//                                        content = 0.0
+//                                    },
+//                                    NutritionalContent().apply{
+//                                        nutrient = Nutrient().apply{
+//                                            nutrientName = "Sodium"
+//                                            unit = "mg"
+//                                        }
+//                                        content = 471.0
+//                                    },
+//                                    NutritionalContent().apply{
+//                                        nutrient = Nutrient().apply{
+//                                            nutrientName = "Potassium"
+//                                            unit = "mg"
+//                                        }
+//                                        content = 180.0
+//                                    },
+//                                )
+//                            }
+//                        )
+//                    }
+//
+//                    //update dailynutrientintake after adding food
+//
+//
+//                    lunch = Lunch().apply{
+//                        foodEntry = realmListOf(
+//                            SampleFood().apply{
+//
+//                            },
+//                            SampleFood().apply{
+//
+//                            }
+//                        )
+//                    }
+//                    dinner = Dinner().apply{
+//                        foodEntry = realmListOf(
+//                            SampleFood().apply{
+//
+//                            },
+//                            SampleFood().apply{
+//
+//                            }
+//                        )
+//                    }
+//                    snacks = Snacks().apply{
+//                        foodEntry = realmListOf(
+//                            SampleFood().apply{
+//
+//                            },
+//                            SampleFood().apply{
+//
+//                            }
+//                        )
+//                    }
+//                    water = Water().apply{
+//                        total = 92.0
+//                    }
+//                }
+//
+//                //dapat nasa initalData sa realmconfig
+//                //dapat kasama rin yung dailynutrientintake and diary sa initialData para di na mamroblema
+//
+//
+//                //calculates the daily nutrient intake of the user
+//                //pass the nutrientContent of the food
+//                //has to send the latest dailyNutrientIntake to calculateDailyNutrientIntake
+//
+//                //sample nutrient content of oreo
+//                //after pressing `add food` by the user, a copy of nutrientContent will be created
+//                //to send to calculateDailyNutrientIntake
+//
+//                var nutrientContent : RealmList<NutritionalContent> = realmListOf(
+//                    NutritionalContent().apply{
+//                        nutrient = Nutrient().apply{
+//                            nutrientName = "Saturated Fat"
+//                            unit = "g"
+//                        }
+//                        content = 6.0
+//                    },
+//                    NutritionalContent().apply{
+//                        nutrient = Nutrient().apply{
+//                            nutrientName = "Cholesterol"
+//                            unit = "g"
+//                        }
+//                        content = 0.0
+//                    },
+//                    NutritionalContent().apply{
+//                        nutrient = Nutrient().apply{
+//                            nutrientName = "Sodium"
+//                            unit = "mg"
+//                        }
+//                        content = 471.0
+//                    },
+//                    NutritionalContent().apply{
+//                        nutrient = Nutrient().apply{
+//                            nutrientName = "Potassium"
+//                            unit = "mg"
+//                        }
+//                        content = 180.0
+//                    }
+//                )
+//
+//                //update nutrients (add)
+//                user1.nutrientIntakeHistory!!.dailyNutrientIntake[user1.nutrientIntakeHistory!!.dailyNutrientIntake.size-1] =
+//                    Repository.addNutrient(nutrientContent, user1.nutrientIntakeHistory!!.dailyNutrientIntake[user1.nutrientIntakeHistory!!.dailyNutrientIntake.size-1])
+//                //update nutrients (delete)
+//                user1.nutrientIntakeHistory!!.dailyNutrientIntake[user1.nutrientIntakeHistory!!.dailyNutrientIntake.size-1] =
+//                    Repository.deleteNutrient(nutrientContent, user1.nutrientIntakeHistory!!.dailyNutrientIntake[user1.nutrientIntakeHistory!!.dailyNutrientIntake.size-1])
+//            }
+//
 //        }
-//
-//        /*
-//            he .stateIn() function in Kotlin’s Flow API is used to convert a Flow into
-//            a StateFlow, which is a state-holder that can be observed.
-//         */
-//
-//        .stateIn(
-//            /*
-//                viewModelScope:
-//
-//                This is a coroutine scope tied to the lifecycle of the ViewModel.
-//                Using viewModelScope ensures that the flow is automatically canceled
-//                when the ViewModel is cleared, preventing memory leaks and unnecessary computations.
-//
-//             */
-//            viewModelScope,
-//
-//            /*
-//                SharingStarted.WhileSubscribed():
-//
-//                This parameter defines the strategy for when the StateFlow should be active.
-//                SharingStarted.WhileSubscribed() means the flow will remain active while there are active subscribers
-//                (collectors).
-//
-//                It will be kept alive as long as there is at least one collector observing the flow.
-//                Once all collectors are gone, the flow will be stopped.
-//             */
-//
-//            SharingStarted.WhileSubscribed(),
-//
-//            /*
-//                Initial value before any data is emitted
-//             */
-//
-//            emptyList()
-//        )
-
-    /*
-        This function creates sample data entries in the Realm database.
-
-        It is executed within the viewModelScope.launch block,
-        meaning the function is executed asynchronously using Kotlin coroutines.
-
-     */
-
-
-    /*
-        Used to initialize realmdb with the entries in this function.
-        Once initialized, the data will persist in the database.
-     */
-
-    //we can use lazy here to initialize one time
-
-//    init {
-//
-//        createSampleEntries()
 //    }
-
-    private fun createSampleEntries() {
-
-        viewModelScope.launch {
-
-            //clearDatabase()
-
-            /*
-                The write block is a Realm transaction where database changes (insertions/updates) are made.
-            */
-
-            realm.write {
-
-                /*
-                    apply is used to initialize the properties of each Address object within a single block.
-                */
-
-                /*
-                    Sample users
-                */
-
-                var user1 = User().apply {
-
-                    firstName = "Holo"
-                    birthDate = Birthdate().apply{
-                        month = 1
-                        day = 1
-                        year = 1
-                    }
-                    height = 170.0
-                    goal = Goal().apply {
-                        goal = "Lose Weight"
-                        currentWeight = 60.0
-                        targetWeight = 50.0
-                    }
-                    activityLevel = 1
-                    sex = "Female"
-                    password = "samplePassword"
-                }
-
-                user1.diary!!.apply{
-                    creationDate = RealmInstant.now()
-                    breakfast = Breakfast().apply{
-                        foodEntry = realmListOf(
-                            SampleFood().apply{
-                                foodName = "Oreo"
-                                nutritionalContent = realmListOf(
-                                    NutritionalContent().apply{
-                                        nutrient = Nutrient().apply{
-                                            nutrientName = "Saturated Fat"
-                                            unit = "g"
-                                        }
-                                        content = 6.0
-                                    },
-                                    NutritionalContent().apply{
-                                        nutrient = Nutrient().apply{
-                                            nutrientName = "Cholesterol"
-                                            unit = "g"
-                                        }
-                                        content = 0.0
-                                    },
-                                    NutritionalContent().apply{
-                                        nutrient = Nutrient().apply{
-                                            nutrientName = "Sodium"
-                                            unit = "mg"
-                                        }
-                                        content = 471.0
-                                    },
-                                    NutritionalContent().apply{
-                                        nutrient = Nutrient().apply{
-                                            nutrientName = "Potassium"
-                                            unit = "mg"
-                                        }
-                                        content = 180.0
-                                    },
-                                )
-                            }
-                        )
-                    }
-
-                    //update dailynutrientintake after adding food
-
-
-                    lunch = Lunch().apply{
-                        foodEntry = realmListOf(
-                            SampleFood().apply{
-
-                            },
-                            SampleFood().apply{
-
-                            }
-                        )
-                    }
-                    dinner = Dinner().apply{
-                        foodEntry = realmListOf(
-                            SampleFood().apply{
-
-                            },
-                            SampleFood().apply{
-
-                            }
-                        )
-                    }
-                    snacks = Snacks().apply{
-                        foodEntry = realmListOf(
-                            SampleFood().apply{
-
-                            },
-                            SampleFood().apply{
-
-                            }
-                        )
-                    }
-                    water = Water().apply{
-                        total = 92.0
-                    }
-                }
-
-                //dapat nasa initalData sa realmconfig
-                //dapat kasama rin yung dailynutrientintake and diary sa initialData para di na mamroblema
-
-
-                //calculates the daily nutrient intake of the user
-                //pass the nutrientContent of the food
-                //has to send the latest dailyNutrientIntake to calculateDailyNutrientIntake
-
-                //sample nutrient content of oreo
-                //after pressing `add food` by the user, a copy of nutrientContent will be created
-                //to send to calculateDailyNutrientIntake
-
-                var nutrientContent : RealmList<NutritionalContent> = realmListOf(
-                    NutritionalContent().apply{
-                        nutrient = Nutrient().apply{
-                            nutrientName = "Saturated Fat"
-                            unit = "g"
-                        }
-                        content = 6.0
-                    },
-                    NutritionalContent().apply{
-                        nutrient = Nutrient().apply{
-                            nutrientName = "Cholesterol"
-                            unit = "g"
-                        }
-                        content = 0.0
-                    },
-                    NutritionalContent().apply{
-                        nutrient = Nutrient().apply{
-                            nutrientName = "Sodium"
-                            unit = "mg"
-                        }
-                        content = 471.0
-                    },
-                    NutritionalContent().apply{
-                        nutrient = Nutrient().apply{
-                            nutrientName = "Potassium"
-                            unit = "mg"
-                        }
-                        content = 180.0
-                    }
-                )
-
-                //update nutrients (add)
-                user1.nutrientIntakeHistory!!.dailyNutrientIntake[user1.nutrientIntakeHistory!!.dailyNutrientIntake.size-1] =
-                    Repository.addNutrient(nutrientContent, user1.nutrientIntakeHistory!!.dailyNutrientIntake[user1.nutrientIntakeHistory!!.dailyNutrientIntake.size-1])
-                //update nutrients (delete)
-                user1.nutrientIntakeHistory!!.dailyNutrientIntake[user1.nutrientIntakeHistory!!.dailyNutrientIntake.size-1] =
-                    Repository.deleteNutrient(nutrientContent, user1.nutrientIntakeHistory!!.dailyNutrientIntake[user1.nutrientIntakeHistory!!.dailyNutrientIntake.size-1])
-            }
-
-        }
-    }
-
-
-
-
-    private suspend fun clearDatabase() {
-        realm.write{
-            deleteAll()
-        }
-    }
+//
+//
+//
+//
+//    private suspend fun clearDatabase() {
+//        realm.write{
+//            deleteAll()
+//        }
+//    }
 
 }
