@@ -2,31 +2,21 @@ package com.example.softwareengineeringproject.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.softwareengineeringproject.App
 import com.example.softwareengineeringproject.App.Companion.realm
 import com.example.softwareengineeringproject.db.diary.Breakfast
-import com.example.softwareengineeringproject.db.diary.Diary
 import com.example.softwareengineeringproject.db.diary.Dinner
 import com.example.softwareengineeringproject.db.diary.Lunch
 import com.example.softwareengineeringproject.db.diary.Snacks
 import com.example.softwareengineeringproject.db.diary.water.Water
 import com.example.softwareengineeringproject.db.food.NutritionalContent
 import com.example.softwareengineeringproject.db.food.SampleFood
-import com.example.softwareengineeringproject.db.nutrient.DailyNutrientIntake
 import com.example.softwareengineeringproject.db.nutrient.Nutrient
-import com.example.softwareengineeringproject.db.nutrient.NutrientContent
-import com.example.softwareengineeringproject.db.nutrient.NutrientIntakeHistory
 import com.example.softwareengineeringproject.db.user.Birthdate
 import com.example.softwareengineeringproject.db.user.Goal
 import com.example.softwareengineeringproject.db.user.User
-import io.realm.kotlin.UpdatePolicy
-import io.realm.kotlin.ext.query
 import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.types.RealmInstant
 import io.realm.kotlin.types.RealmList
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class MainViewModel: ViewModel() {
@@ -285,10 +275,10 @@ class MainViewModel: ViewModel() {
 
                 //update nutrients (add)
                 user1.nutrientIntakeHistory!!.dailyNutrientIntake[user1.nutrientIntakeHistory!!.dailyNutrientIntake.size-1] =
-                    DataManipulator.addNutrient(nutrientContent, user1.nutrientIntakeHistory!!.dailyNutrientIntake[user1.nutrientIntakeHistory!!.dailyNutrientIntake.size-1])
+                    Repository.addNutrient(nutrientContent, user1.nutrientIntakeHistory!!.dailyNutrientIntake[user1.nutrientIntakeHistory!!.dailyNutrientIntake.size-1])
                 //update nutrients (delete)
                 user1.nutrientIntakeHistory!!.dailyNutrientIntake[user1.nutrientIntakeHistory!!.dailyNutrientIntake.size-1] =
-                    DataManipulator.deleteNutrient(nutrientContent, user1.nutrientIntakeHistory!!.dailyNutrientIntake[user1.nutrientIntakeHistory!!.dailyNutrientIntake.size-1])
+                    Repository.deleteNutrient(nutrientContent, user1.nutrientIntakeHistory!!.dailyNutrientIntake[user1.nutrientIntakeHistory!!.dailyNutrientIntake.size-1])
             }
 
         }

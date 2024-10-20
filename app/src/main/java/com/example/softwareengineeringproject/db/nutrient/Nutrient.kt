@@ -9,7 +9,7 @@ class Nutrient: RealmObject {
 
     var nutrientName: String = ""
     var unit: String = ""
-    var recommendedDietaryIntake: RDA? = null
+    var dietaryReferenceIntake: DRI? = null
 
     /*
         Vitamin A

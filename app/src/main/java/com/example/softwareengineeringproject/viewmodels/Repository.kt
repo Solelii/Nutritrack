@@ -1,8 +1,5 @@
 package com.example.softwareengineeringproject.viewmodels
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.softwareengineeringproject.App
 import com.example.softwareengineeringproject.App.Companion.realm
 import com.example.softwareengineeringproject.db.diary.Diary
 import com.example.softwareengineeringproject.db.food.NutritionalContent
@@ -20,7 +17,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
-class DataManipulator {
+class Repository {
     companion object{
         suspend fun resetDailyNutrientIntake(dailyNutrientIntake: DailyNutrientIntake) {
             realm.write {
